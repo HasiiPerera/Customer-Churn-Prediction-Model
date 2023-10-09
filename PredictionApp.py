@@ -3,7 +3,11 @@ import pandas as pd
 import pickle
 
 # Load the Random Forest model from the pickle file
-model = pickle.load(open('grid_search_rf_model.pkl', 'rb'))
+#model = pickle.load(open('grid_search_rf_model.pkl', 'rb'))
+try:
+    model = pickle.load(open('grid_search_rf_model.pkl', 'rb'))
+except Exception as e:
+    print(f"Error loading the model: {str(e)}")
 
 # Create a function to preprocess user input and make predictions
 
