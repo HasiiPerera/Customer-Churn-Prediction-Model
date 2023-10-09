@@ -17,7 +17,11 @@ def predict_churn_status(input_data):
     input_df = pd.DataFrame([input_data])
     
     # Make predictions using the loaded model
-    prediction = model.predict(input_df)
+    try:
+        prediction = model.predict(input_df)
+    except Exception as e:
+        print(f"Error during prediction: {str(e)}")
+
     
 
     return "Approved" if prediction[0] == 1 else "Rejected"
