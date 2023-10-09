@@ -5,38 +5,17 @@ import pickle
 # Load the Random Forest model from the pickle file
 model = pickle.load(open('grid_search_rf_model.pkl', 'rb'))
 
-# with open('standard_scaler.pkl', 'rb') as scaler_file:
-#     scaler = pickle.load(scaler_file)
-
-# # Function to make predictions
-# def predict_loan_status(data):
-#     # data['education'] = data['education'].map({'Not Graduate': 0, 'Graduate': 1})
-#     # data['self_employed'] = data['self_employed'].map({'No': 0, 'Yes': 1})
-
-#     # Use the loaded scaler to transform new data
-#     new_data_scaled = scaler.transform(data)
-
-#     prediction = model.predict(new_data_scaled)
-
-#     return "Approved" if prediction[0] == 1 else "Rejected"
-
-# # Define the columns for user input
-# columns = ['tenure', 'PhoneService', 'Contract',
-#            'PaperlessBilling', 'PaymentMethod', 'MonthlyCharges']
-
 # Create a function to preprocess user input and make predictions
 
 
-def predict_loan_status(input_data):
+def predict_churn_status(input_data):
     # Preprocess the input data
     input_df = pd.DataFrame([input_data])
     #st.write(input_data)
     # Make predictions using the loaded model
     prediction = model.predict(input_df)
-    # probability = model.predict_proba(input_df)[:, 1]
 
     return "Approved" if prediction[0] == 1 else "Rejected"
-    # return prediction[0], probability[0]
 
 # Create the Streamlit app
 
@@ -130,7 +109,7 @@ def main():
     # Button to trigger predictions
     if input_data is not None and st.button('Churn Prediction Status'):
         # Make predictions and get labels
-        prediction_label = predict_loan_status(input_data)
+        prediction_label = predict_churn_status(input_data)
 
         # Display prediction label
         st.subheader('Prediction:')
@@ -141,21 +120,6 @@ def main():
         else:
             st.error("Not a Churned Customer")
             st.write("Model Accuracy: 86%")
-
-    # # Predict churn based on user input
-    # churn_probability = predict_churn(input_data)
-    # churn_prediction=churn_probability[1]
-    # # Display the prediction
-    # st.subheader("Churn Prediction")
-    # if churn_prediction >= 0.4:
-    #     st.write("The customer is likely to churn.")
-    # else:
-    #     st.write("The customer is unlikely to churn.")
-
-    # # Display the churn probability
-    # st.subheader("Churn Probability")
-
-    # st.write("The probability of churn is:", churn_probability)
 
 
 # Run the Streamlit app
