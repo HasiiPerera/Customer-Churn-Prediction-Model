@@ -17,11 +17,12 @@ def predict_churn_status(input_data):
     # Make predictions using the loaded model
     try:
         prediction = model.predict(input_df)
+        return "Approved" if prediction[0] == 1 else "Rejected"
     except Exception as e:
         print(f"Error during prediction: {str(e)}")
     # probability = model.predict_proba(input_df)[:, 1]
 
-    return "Approved" if prediction[0] == 1 else "Rejected"
+    
     # return prediction[0], probability[0]
 
 # Create the Streamlit app
