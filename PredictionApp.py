@@ -12,10 +12,11 @@ except Exception as e:
 
 def predict_churn_status(input_data):
     # Preprocess the input data
-    input_df = pd.DataFrame([input_data])
+    
     #st.write(input_data)
     # Make predictions using the loaded model
     try:
+        input_df = pd.DataFrame([input_data])
         prediction = model.predict(input_df)
         return "Approved" if prediction[0] == 1 else "Rejected"
     except Exception as e:
