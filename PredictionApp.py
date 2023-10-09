@@ -3,11 +3,11 @@ import pandas as pd
 import pickle
 
 # Load the Random Forest model from the pickle file
-#model = pickle.load(open('grid_search_rf_model.pkl', 'rb'))
 try:
     model = pickle.load(open('grid_search_rf_model.pkl', 'rb'))
 except Exception as e:
     print(f"Error loading the model: {str(e)}")
+
 
 # Create a function to preprocess user input and make predictions
 
@@ -15,11 +15,13 @@ except Exception as e:
 def predict_churn_status(input_data):
     # Preprocess the input data
     input_df = pd.DataFrame([input_data])
-    #st.write(input_data)
+    
     # Make predictions using the loaded model
     prediction = model.predict(input_df)
+    
 
     return "Approved" if prediction[0] == 1 else "Rejected"
+    
 
 # Create the Streamlit app
 
